@@ -1,6 +1,5 @@
 namespace SpriteKind {
     export const goal = SpriteKind.create()
-    export const Coin = SpriteKind.create()
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
@@ -42,44 +41,6 @@ controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 300
 tiles.setCurrentTilemap(tilemap`level1`)
 scene.cameraFollowSprite(mySprite)
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
-    otherSprite.destroy(effects.confetti, 100)
-    info.changeScoreBy(1)
-})
-let coinImg = img`
-    . . . . . . . . . . . . . . .
-    . . . . . . . c c . . . . . .
-    . . . . . . c 5 5 c . . . . .
-    . . . . . c 5 5 5 5 c . . . .
-    . . . . . c 5 5 5 5 c . . . .
-    . . . . . . c 5 5 c . . . . .
-    . . . . . . . c c . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    . . . . . . . . . . . . . . .
-    `
-for (let col = 0; col < tiles.tilemapColumns(); col++) {
-    let topCoin = sprites.create(coinImg, SpriteKind.Coin)
-    tiles.placeOnTile(topCoin, tiles.getTileLocation(col, 0))
-    topCoin.setFlag(SpriteFlag.Ghost, true)
-    let bottomCoin = sprites.create(coinImg, SpriteKind.Coin)
-    tiles.placeOnTile(bottomCoin, tiles.getTileLocation(col, tiles.tilemapRows() - 1))
-    bottomCoin.setFlag(SpriteFlag.Ghost, true)
-}
-for (let row = 1; row < tiles.tilemapRows() - 1; row++) {
-    let leftCoin = sprites.create(coinImg, SpriteKind.Coin)
-    tiles.placeOnTile(leftCoin, tiles.getTileLocation(0, row))
-    leftCoin.setFlag(SpriteFlag.Ghost, true)
-    let rightCoin = sprites.create(coinImg, SpriteKind.Coin)
-    tiles.placeOnTile(rightCoin, tiles.getTileLocation(tiles.tilemapColumns() - 1, row))
-    rightCoin.setFlag(SpriteFlag.Ghost, true)
-}
 let goal2 = sprites.create(img`
     . . . . . . . f f . . . . . . . 
     . . . . . f f 4 4 f f . . . . . 
@@ -129,32 +90,3 @@ mySprite2.setPosition(208, 80)
 mySprite2.vx = 50
 mySprite2.setBounceOnWall(true)
 mySprite2.vx = 50
-let mySprite3 = sprites.create(img`
-    ........................
-    ........................
-    ..........ccccccc.......
-    .........c7777777c......
-    ........c777777777c.....
-    .......c7777777777c.....
-    ......c777777777777c....
-    .....c7777777777777c....
-    ....c777777777777777c...
-    ....c777777777777777c...
-    ....c777777777777777c...
-    ....c777777777777777c...
-    .....c7777777777777c....
-    ......c777777777777c....
-    .......c7777777777c.....
-    ........c77777777c......
-    .........c777777c.......
-    ..........cccccc........
-    ........................
-    ........................
-    ........................
-    ........................
-    ........................
-    ........................
-    `, SpriteKind.Enemy)
-mySprite3.setPosition(432, 56)
-mySprite3.vx = -40
-mySprite3.setBounceOnWall(true)
